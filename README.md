@@ -1,3 +1,3 @@
 # kottans.org
 
-* [Memory-Game](Exercise 12/)
+* [Memory Game](./Exercise%2012/)
