@@ -1,5 +1,9 @@
 ## JavaScript Basics
 
+
+### FreeCodeCamp JavaScript - 300 Hours
+![All](./images/FreeCodeCamp-JavaScript.jpg)
+
 <br />
 <br />
 

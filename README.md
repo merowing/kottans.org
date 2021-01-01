@@ -11,6 +11,7 @@
         <br />
         <br />
     1. FreeCodeCamp exercises.
+        * [All](./Exercise%206/2%20-%20advanced/#freecodecamp-javascript---300-hours)
         * [Pig Latin](./Exercise%206/2%20-%20advanced/#pig-latin)
         * [Convert HTML Entities](./Exercise%206/2%20-%20advanced/#convert-html-entities)
 <br />
