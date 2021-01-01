@@ -9,6 +9,7 @@
         * [Convert HTML Entities](./Excercise%206/2%20-%20advanced/#convert-html-entities)
 <br />
 <br />
+
 * Exercise 7
     1. ...
         <br />
@@ -26,5 +27,6 @@
     1. [Practical task](./Exercise%207/3/)
 <br />
 <br />
+
 * Exercise 12
     1. [Memory Game](./Exercise%2012/)
