@@ -1,3 +1,3 @@
 # kottans.org
 
-[link](LICENSE)
+[Memory Game](Exercise 12/)
