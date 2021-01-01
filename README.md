@@ -1,1 +1,2 @@
 # kottans.org
+[link]: LICENSE
