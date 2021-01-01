@@ -5,8 +5,8 @@
         <br />
         <br />
     1. FreeCodeCamp exercises.
-        * [Pig Latin](./Excercise%206/2%20-%20advanced/#pig-latin)
-        * [Convert HTML Entities](./Excercise%206/2%20-%20advanced/#convert-html-entities)
+        * [Pig Latin](./Exercise%206/2%20-%20advanced/#pig-latin)
+        * [Convert HTML Entities](./Exercise%206/2%20-%20advanced/#convert-html-entities)
 <br />
 <br />
 
