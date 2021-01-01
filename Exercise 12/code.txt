@@ -1,0 +1,28 @@
+let arr = ['cherry', 'orange', 'apple'];
+let num = 2;
+let getNumber = (min, max) => Math.round(Math.random() * (max - min) + min);
+let newArr = [];
+
+let getNumber = (min, max) => Math.round(Math.random() * (max - min) + min);
+for(let j = 0; j < 10; j++) {
+let l = 0;
+let regexp;
+let arr = ['cherry', 'orange', 'apple', 'lemon', 'banana', 'apricot'];
+let arrElems = arr.length;
+let counts = 2;
+newArr = [];
+for(let i = 0; i < arrElems * counts; i++) {
+    l = arr[getNumber(0, arrElems - 1)];
+    if(!newArr.length) { newArr.push(l); continue; }
+
+    regexp = new RegExp(l, "g");
+    if(!newArr.join(',').match(regexp)) {
+        newArr.push(l);
+    }else if(newArr.join(',').match(regexp).length <= counts - 1) {
+        newArr.push(l);
+    }else {
+        i--;
+    }
+}
+console.log(newArr);
+}

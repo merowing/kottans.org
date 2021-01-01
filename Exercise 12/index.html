@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+div#fruits {
+    list-style: none;
+    padding: 0;
+    margin: 40px auto;
+    font-size: 0;
+    max-width: 680px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-content: space-between;
+}
+.cardBlockInside > div:first-child {
+    background-position: center center;
+    background-repeat: no-repeat;
+    transform: rotateY(180deg);
+}
+.fruit-1 {
+    background:url('fruit-1.png');
+}
+.fruit-2 {
+    background:url('fruit-2.png');
+}
+.fruit-3 {
+    background:url('fruit-3.png');
+}
+.fruit-4 {
+    background:url('fruit-4.png');
+}
+.fruit-5 {
+    background:url('fruit-5.png');
+}
+.fruit-6 {
+    background:url('fruit-6.png');
+}
+.fruit-7 {
+    background:url('fruit-7.png');
+}
+.fruit-8 {
+    background:url('fruit-8.png');
+}
+.fruit-9 {
+    background:url('fruit-9.png');
+}
+.fruit-10 {
+    background:url('fruit-10.png');
+}
+.fruit-11 {
+    background:url('fruit-11.png');
+}
+.fruit-12 {
+    background:url('fruit-12.png');
+}
+.fruit-13 {
+    background:url('fruit-13.png');
+}
+.fruit-14 {
+    background:url('fruit-14.png');
+}
+.fruit-15 {
+    background:url('fruit-15.png');
+}
+.fruit-16 {
+    background:url('fruit-16.png');
+}
+.fruit-17 {
+    background:url('fruit-17.png');
+}
+.fruit-18 {
+    background:url('fruit-18.png');
+}
+.fruit-19 {
+    background:url('fruit-19.png');
+}
+.fruit-20 {
+    background:url('fruit-20.png');
+}
+
+
+.card {
+    width: 140px;
+    height: 140px;
+    perspective: 1000px;
+    box-sizing: border-box;
+}
+.cardBlockInside {
+    position: relative;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    height: 100%;
+    width: 100%;
+    border: 1px solid lightgray;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+.flip {
+    transform: rotateY(180deg);
+}
+.cardBlockInside > div {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+}
+.back {
+    background-color: gray;
+}
+.same {
+    border: 1px solid lightgray;
+}
+
+</style>
+</head>
+<body>
+<main>
+    <div id="fruits"></div>
+</main>
+<script>
+
+    // ------------------------------
+
+    
+    let getNumber = (min, max) => Math.round(Math.random() * (max - min) + min);
+    
+    let arrFruits = ['fruit-1', 'fruit-2', 'fruit-3', 'fruit-4', 'fruit-5', 'fruit-6', 'fruit-7', 'fruit-8', 'fruit-9', 'fruit-10', 'fruit-11', 'fruit-12', 'fruit-13', 'fruit-14', 'fruit-15', 'fruit-16', 'fruit-17', 'fruit-18', 'fruit-19', 'fruit-20'];
+    let arrElems = 6;//arr.length;
+    let counts = 2;
+    let newArr = [];
+
+    let fruits = document.querySelector('#fruits');
+
+    let ids = []; // cards ids
+    let maxIds = counts; // maximum cards for compare
+    let elems = []; // elements whitch we will be add class
+    let cards = 0; // sum of correct cards
+    let loadCards = 0; // max cards for compare
+
+    function game() {
+        let arr = []; // list of our chosen fruits
+        let temp = [];
+
+        // if we decided to choose less fruits than array has.
+        if(arrElems < arrFruits.length) {
+            
+            /*
+            for(let j = 0; j < arrElems; j++) {
+                let l1 = arrFruits[getNumber(0, arrFruits.length - 1)];
+                if(temp.indexOf(l1) === -1 || !temp.length) {
+                    temp.push(l1);
+                }else {
+                    j--;
+                }
+            }
+            arr = temp.slice();
+            */
+           
+            let number = getNumber(0, arrFruits.length - 1);
+            if(number + arrElems > arrFruits.length) {
+                let num1 = arrFruits.length - number;
+                let num2 = arrElems - num1;
+                arr = [...arrFruits.splice(number, num1), ...arrFruits.splice(0, num2)];
+            }else {
+                arr = arrFruits.splice(number, arrElems);
+            }
+
+        }else {
+            // used slice for copy, not just for link
+            arr = arrFruits.slice();
+        }
+
+        newArr = [];
+        for(let i = 0; i < arrElems * counts; i++) {
+            let item = arr[getNumber(0, arr.length - 1)];
+            let regexp = new RegExp("\\b" + item + "\\b", "g");
+            
+            if(!newArr.length) { newArr.push(item); continue; }
+
+            
+            if(!newArr.join(',').match(regexp)) {
+                newArr.push(item);
+            }else if(newArr.join(',').match(regexp).length <= counts - 1) {
+                newArr.push(item);
+            }else {
+                
+                // when the range so small we have to delete those elements which we have already added
+                // for the reason that random function sometimes get old id element and
+                // we have a chance to get infinity loop
+                if(arr.length > 1) {
+                    arr.splice(arr.indexOf(item), 1);
+                    i--;
+                }
+            }
+        }
+
+        generateCards();
+    }
+    game();
+    // ------------------------------
+
+    
+
+    // ---------------
+
+    function generateCards() {
+        loadCards = newArr.length;
+        fruits.innerHTML = "";
+        let fruitDivFragment = document.createDocumentFragment('div');
+        for(let i = 0; i < loadCards; i++) {
+            let div = document.createElement("div");
+            div.setAttribute('class', 'card');
+            div.innerHTML = `
+                <div class="cardBlockInside">    
+                    <div class="${newArr[i]}"></div>
+                    <div class="back" data-id="${/[0-9]+/.exec(newArr[i])[0]}"></div>
+                </div>
+            `;
+            fruitDivFragment.appendChild(div);
+        }
+        fruits.appendChild(fruitDivFragment);
+    }
+
+    // ---------------
+
+    fruits.addEventListener("click", e => {
+        let elem = e.target;
+        
+        // check if element has id. back has, front hasn't
+        if(!elem.dataset.id || ids.length === maxIds) return;
+
+        // set '.flip' class block
+        let className = 'flip';
+        let arrClass = elem.parentNode.getAttribute('class').split(' ');
+        if(arrClass.indexOf(className) === -1) {
+            arrClass.push(className);
+        }
+        elem.parentNode.setAttribute('class', arrClass.join(' '));
+        // ----
+
+        
+        let id = elem.dataset.id;
+        if(ids.length < maxIds) {
+            ids.push(elem.dataset.id);
+            elems.push(elem.parentNode);
+        }
+
+        if(ids.length === maxIds) {
+            let firstIds = ids[0];
+            // store the first id and compare with others ids from the ids array
+            // if filter return empty array that means all cards the same
+            if(ids.filter(id => firstIds !== id).length) {
+                cardsSame(false, won);
+            }else {
+                cardsSame(true, won);
+            }
+        }
+
+        function won(cardsLen) {
+            // wait for when all cards will be hidden on the field
+            setTimeout(() => {
+                if(cardsLen === loadCards) {
+                    alert("Congratulations!\r\nYou won.");
+                    //let decide = confirm("Do you want to play again?");
+                    //if(decide) {
+                        cards = 0;
+                        game();
+                        //generateCards();
+                    //}
+                }
+            }, 500);
+        }
+
+        function cardsSame(state, callback) {
+            setTimeout(function() {
+                for(let i = 0; i < elems.length; i++) {
+                    if(state) {
+                        elems[i].parentNode.setAttribute('class', elems[i].parentNode.getAttribute('class') + ' same');
+                        elems[i].parentNode.removeChild(elems[i]);
+                    }else {
+                        let classStr = elems[i].getAttribute('class').split(' ').filter(i => i != 'flip');
+                        elems[i].setAttribute('class', classStr);
+                    }
+
+                    if(i === elems.length - 1) {
+                        elems = [];
+                        ids = [];
+                        
+                        if(state) {
+                            cards += maxIds;
+                            callback(cards);
+                        }
+                    }
+                }
+
+            }, 1000);
+        }
+    });
+    /*let card = document.querySelector('.card');
+    card.addEventListener("click", e => {
+        let insideDiv = card.querySelector('div');
+        let insideDivClass = (insideDiv.getAttribute('class')).split(' ');
+        let flipClass = 'flip';
+        let flipClassIndex = insideDivClass.indexOf(flipClass);
+
+        if(flipClassIndex === -1) {
+            insideDivClass.push(flipClass);
+        }else {
+            insideDivClass.splice(flipClassIndex, 1);
+        }
+        insideDiv.setAttribute('class', insideDivClass.join(' '));
+
+        //if(card.querySelector('div').classList.toString().indexOf('flip') <= 0) {
+        //    card.querySelector('div').classList.add('flip');
+        //}else {
+        //    card.querySelector('div').classList.remove('flip');
+        //}
+        //card.querySelector('div').classList.indexOf('flip')
+    });*/
+
+    //let block = document.querySelector("#fruits");
+
+    /*let fruitDivFragment = document.createDocumentFragment('div');
+    for(let i = 0; i < 20; i++) {
+        let div = document.createElement("div");
+        div.setAttribute('class', `fruit-${i+1}`);
+        div.setAttribute('data-id', i);
+        div.innerHTML = "<div></div>";
+        fruitDivFragment.appendChild(div);
+    }
+    block.appendChild(fruitDivFragment);
+
+    block.addEventListener("click", e => {
+        alert(e.target.dataset.id)
+        alert(e.target.getAttribute('class'));
+    });*/
+
+        let blockWidth = fruits.querySelector('div').offsetWidth;
+        let maxItems = Math.floor(fruits.clientWidth / blockWidth);
+        let spaceBetween = (fruits.clientWidth - maxItems * blockWidth) / (maxItems - 1);
+
+        let columns = Math.ceil(fruits.querySelectorAll(':scope > div').length / maxItems);
+
+        if(columns > 1) fruits.style.height = (columns * blockWidth + (columns - 1) * spaceBetween) + 'px';
+</script>
+</body>
+</html>
